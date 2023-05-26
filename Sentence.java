@@ -7,7 +7,7 @@ public class Sentence
   /*
   *@param list of toppings
   *@param prompt format
-  *@return part of entire prompt, excluding cuts, doneness
+  *@return part of entire prompt, excludes cuts, doneness, sauce?, cheese?
   *
   *
   */

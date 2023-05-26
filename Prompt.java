@@ -23,7 +23,8 @@ public class Prompt
     top.add("lamb");
     top.add("zucchini");
   }
-  
+
+  // returns arraylist of initials of toppings to be added for this pizza
   public ArrayList<String> genPrompt()
   {
     // Generate random values
@@ -62,9 +63,10 @@ public class Prompt
     String x = "";
     x += Sentence.genSentence(output, structure); // turn full names of ingredients into actual English sentence
     x += " ";
-    x += Sentence.genAddOn(sauce, cheese, cuts, doneness, input);
-    int temp = top.size();
-    for (int i = 0; i < temp; i++)
+    x += Sentence.genAddOn(sauce, cheese, cuts, doneness, input); // miscellaneous requests unrelated to toppings
+
+    // reset list of toppings
+    for (int i = 0; i < top.size(); i++)
     {
       top.remove(0);
     }
