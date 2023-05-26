@@ -31,8 +31,8 @@ public class Prompt
     // Create ArrayList of expected user input
     // Create ArrayList of full topping names to put on pizza
     // Reset top to list of every topping
-    ArrayList<String> input = new ArrayList<String>();
-    ArrayList<String> output = new ArrayList<String>();
+    ArrayList<String> input = new ArrayList<String>(); // first letters only
+    ArrayList<String> output = new ArrayList<String>(); // full name ingredient
     
     topAmount = (int)(Math.random() * 5) + 1;
     structure = (int)(Math.random() * 10);
@@ -44,20 +44,23 @@ public class Prompt
     //chance to ask for no cheese
     cheese = (int)(Math.random() * 5);
 
-    //
+    //chance to ask for abnormal cuts
     cuts = (int)(Math.random() * 10);
+
+    //chance to ask for different doneness
     doneness = (int)(Math.random() * 20);
     String prompt = "";
 
     for (int i = 0; i < topAmount; i++)
     {
-      int x = (int)(Math.random() * top.size());
-      output.add(top.get(x));
-      input.add(top.remove(x).substring(0, 1));
+      int x = (int)(Math.random() * top.size()); // pick random topping
+      
+      output.add(top.get(x)); // full ingredient names
+      input.add(top.remove(x).substring(0, 1)); // first letters only
     }
 
     String x = "";
-    x += Sentence.genSentence(output, structure);
+    x += Sentence.genSentence(output, structure); // turn full names of ingredients into actual English sentence
     x += " ";
     x += Sentence.genAddOn(sauce, cheese, cuts, doneness, input);
     int temp = top.size();
