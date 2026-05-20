@@ -85,8 +85,10 @@ public class MyFrame extends JFrame implements MouseListener {
 	JLabel gameOverCenter = new JLabel();
 	
 	JLayeredPane countertop;
-	JPanel essentials;
-	JPanel toppings;
+	JLayeredPane bottomLeft;
+	// JPanel essentials;
+	// JPanel toppings;
+	JLabel table;
 	JLabel tomatoSauce = new JLabel();
 	JLabel cheese = new JLabel();
 	JLabel bake = new JLabel();
@@ -227,190 +229,169 @@ public class MyFrame extends JFrame implements MouseListener {
 	*/
 	ArrayList<MySwingWorker> workerList = new ArrayList<MySwingWorker>();
 	int workerIndex = 0;
-	
-	
-	// ====================================================================================================
-	// !!!                                      CONSTRUCTOR                                             !!!
-	// ====================================================================================================
-	
-	public MyFrame() {
-		menu.setIcon(new ImageIcon(this.getClass().getResource("Menu Background.png")));
-		menu.setBounds(0, 0, 800, 800);
+
+	// ==============================================================================================
+	// !!!                                    CONSTANTS                                           !!!
+	// ==============================================================================================
+	int VIEWPORT_WIDTH = 800;
+	int VIEWPORT_HEIGHT = 800;
+	int WINDOW_WIDTH = 813;
+	int WINDOW_HEIGHT = 837;
+
+	private void setIconJLabel(JLabel label, String path) {
+		label.setIcon(new ImageIcon(this.getClass().getResource(path)));
+	}
+
+	private void setBoundsJLabel(JLabel label, int x, int y, int width, int height) {
+		label.setBounds(x, y, width, height);
+	}
+
+	private void setWindowProperties() {
+		this.setTitle("Pizza Mania"); // window title
+		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE); // what happens when user click X
+		this.setResizable(false); // can't resize window
+		this.setBackground(new Color(0xEEE9D1));
+		this.setSize(WINDOW_WIDTH, WINDOW_HEIGHT); // window width, height
+	}
+
+	private void setupPrompt() {
+		promptObject = new Prompt();
+		promptMap = new HashMap<String, Integer>();
+		inputtedMap = new HashMap<String, Integer>();
+		resetMaps();
+	}
+
+	private void setupCountertop() {
+		countertop = new JLayeredPane();
+		//essentials = new JPanel();
+		//toppings = new JPanel();
+		table = new JLabel();
 		
-		play.setIcon(new ImageIcon(this.getClass().getResource("Play.png")));
-		play.setBounds(150, 550, 200, 100);
+		countertop.setBounds(0, 0, 500, 600);
+		//essentials.setSize(500, 500);
+		//toppings.setSize(500, 500);
+
+		setIconJLabel(table, "counter.png");
+		setBoundsJLabel(table, 0, 50, 500, 500);
+		
+		countertop.add(table);
+		countertop.setLayer(table,  0);
+		countertop.moveToBack(table);
+	}
+
+	private void setupRightPanel() {
+		JLabel[] toppingArray = {
+			tomatoSauce,
+			cheese,
+			bake,
+			cut,
+			pepperoni,
+			sausage,
+			mushroom,
+			onion,
+			greenPepper,
+			anchovy,
+			egg,
+			ham,
+			jalapeno,
+			kimchi,
+			lamb,
+			zucchini,
+			confirm,
+		};
+		String[] toppingTextArray = {
+			"t",
+			"c",
+			"b",
+			"-",
+			"p",
+			"s",
+			"m",
+			"o",
+			"g",
+			"a",
+			"e",
+			"h",
+			"j",
+			"k",
+			"l",
+			"z",
+			"Confirm",
+		};
+		int[][] toppingBoundsArray = {
+			{500, 50, 100, 150},
+			{500, 200, 100, 150},
+			{500, 350, 100, 150},
+			{500, 500, 100, 150},
+			{600, 50, 100, 100},
+			{700, 50, 100, 100},
+			{600, 150, 100, 100},
+			{700, 150, 100, 100},
+			{600, 250, 100, 100},
+			{700, 250, 100, 100},
+			{600, 350, 100, 100},
+			{700, 350, 100, 100},
+			{600, 450, 100, 100},
+			{700, 450, 100, 100},
+			{600, 550, 100, 100},
+			{700, 550, 100, 100},
+			{500, 650, 300, 150},
+		};
+
+		for (int i = 0; i < toppingArray.length; i++) {
+			JLabel label = toppingArray[i];
+			String text = toppingTextArray[i];
+			int[] bounds = toppingBoundsArray[i];
+			label.setText(text);
+			label.setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
+			setIconJLabel(label, text + ".png");
+			label.addMouseListener(this);
+		}
+	}
+
+	private void setupPregameMenus() {
+		setIconJLabel(menu, "Menu Background.png");
+		setBoundsJLabel(menu, 0, 0, VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
+		
+		setIconJLabel(play, "Play.png");
+		setBoundsJLabel(play, 150, 550, 200, 100);
 		play.addMouseListener(this);
 		
-		tutorial.setIcon(new ImageIcon(this.getClass().getResource("Tutorial.png")));
-		tutorial.setBounds(450, 550, 200, 100);
+		setIconJLabel(tutorial, "Tutorial.png");
+		setBoundsJLabel(tutorial, 450, 550, 200, 100);
 		tutorial.addMouseListener(this);
 		
-		tutorialPage.setIcon(new ImageIcon(this.getClass().getResource("Tutorial Page.png")));
-		tutorialPage.setBounds(0, 0, 800, 800);
+		setIconJLabel(tutorialPage, "Tutorial Page.png");
+		setBoundsJLabel(tutorialPage, 0, 0, VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
 		tutorialPage.setVisible(false);
 
-		
 		this.add(play);
 		this.add(tutorial);
 		this.add(menu);
 		this.add(tutorialPage);
-		
+	}
+
+	private void setupPostgameMenus() {
+		setIconJLabel(gameOver, "Game Over.png");
+		setBoundsJLabel(gameOver, 0, 0, VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
 		gameOver.setVisible(false);
-		gameOver.setIcon(new ImageIcon(this.getClass().getResource("Game Over.png")));
-		gameOver.setBounds(0, 0, 800, 800);
 		
-		gameOverCenter.setVisible(false);
-		gameOverCenter.setIcon(new ImageIcon(this.getClass().getResource("Game Over Center.png")));
+		setIconJLabel(gameOverCenter, "Game Over Center.png");
+		setBoundsJLabel(gameOverCenter, 13, 450, 787, 300);
 		gameOverCenter.setFont(new Font("MS Gothic", Font.BOLD, 50));
 		gameOverCenter.setHorizontalAlignment(JLabel.CENTER);
 		gameOverCenter.setVerticalAlignment(JLabel.CENTER);
 		gameOverCenter.setHorizontalTextPosition(JLabel.CENTER);
 		gameOverCenter.setVerticalTextPosition(JLabel.CENTER);
-		gameOverCenter.setBounds(13, 450, 787, 300);
+		gameOverCenter.setVisible(false);
 		
 		this.add(gameOverCenter);
 		this.add(gameOver);
-		
-		
-		
-		promptObject = new Prompt();
-		promptMap = new HashMap<String, Integer>();
-		inputtedMap = new HashMap<String, Integer>();
-		resetMaps();
-
-		
-		this.setTitle("Pizza Mania"); // window title
-		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE); // what happens when user click X
-		this.setResizable(false); // can't resize window
-		this.setBackground(new Color(0xEEE9D1));
-		this.setSize(814, 837); // window width, height
-		
-		JLabel background = new JLabel();
-		background.setBackground(new Color(0xEEE9D1));
-		background.setOpaque(true);
-		background.setBounds(0, 0, 800, 800);
-		
-		Border border = BorderFactory.createLineBorder(new Color(0x313131), 5);
-		
-		countertop = new JLayeredPane();
-		essentials = new JPanel();
-		toppings = new JPanel();
-		
-		countertop.setBounds(0, 0, 500, 600);
-		essentials.setSize(500, 500);
-		toppings.setSize(500, 500);
-
-		JLabel table = new JLabel();
-		table.setBounds(0, 50, 500, 500);
-		table.setIcon(new ImageIcon(this.getClass().getResource("counter.png")));
-		
-		countertop.add(table);
-		countertop.setLayer(table,  0);
-		countertop.moveToBack(table);
-		
-		
-		tomatoSauce.setText("t");
-		tomatoSauce.setBounds(500, 50, 100, 150);
-		tomatoSauce.setIcon(new ImageIcon(this.getClass().getResource("t.png")));
-		tomatoSauce.addMouseListener(this);
-		
-		cheese.setText("c");
-		cheese.setBounds(500, 200, 100, 150);
-		cheese.setIcon(new ImageIcon(this.getClass().getResource("c.png")));
-		cheese.addMouseListener(this);
-		
-		
-		bake.setText("b");
-		bake.setBounds(500, 350, 100, 150);
-		bake.setIcon(new ImageIcon(this.getClass().getResource("b.png")));
-		bake.addMouseListener(this);
-		
-		
-		cut.setText("-");
-		cut.setBounds(500, 500, 100, 150);
-		cut.setIcon(new ImageIcon(this.getClass().getResource("-.png")));
-		cut.addMouseListener(this);
-
-		
-		pepperoni.setText("p");
-		pepperoni.setBounds(600, 50, 100, 100);
-		pepperoni.setIcon(new ImageIcon(this.getClass().getResource("p.png")));
-		pepperoni.addMouseListener(this);
-
-		
-		sausage.setText("s");
-		sausage.setBounds(700, 50, 100, 100);
-		sausage.setIcon(new ImageIcon(this.getClass().getResource("s.png")));
-		sausage.addMouseListener(this);
-
-		
-		mushroom.setText("m");
-		mushroom.setBounds(600, 150, 100, 100);
-		mushroom.setIcon(new ImageIcon(this.getClass().getResource("m.png")));
-		mushroom.addMouseListener(this);
-
-		
-		onion.setText("o");
-		onion.setBounds(700, 150, 100, 100);
-		onion.setIcon(new ImageIcon(this.getClass().getResource("o.png")));
-		onion.addMouseListener(this);
-
-		
-		greenPepper.setText("g");
-		greenPepper.setBounds(600, 250, 100, 100);
-		greenPepper.setIcon(new ImageIcon(this.getClass().getResource("g.png")));
-		greenPepper.addMouseListener(this);
-
-		
-		anchovy.setText("a");
-		anchovy.setBounds(700, 250, 100, 100);
-		anchovy.setIcon(new ImageIcon(this.getClass().getResource("a.png")));
-		anchovy.addMouseListener(this);
-
-		
-		egg.setText("e");
-		egg.setBounds(600, 350, 100, 100);
-		egg.setIcon(new ImageIcon(this.getClass().getResource("e.png")));
-		egg.addMouseListener(this);
-
-		
-		ham.setText("h");
-		ham.setBounds(700, 350, 100, 100);
-		ham.setIcon(new ImageIcon(this.getClass().getResource("h.png")));
-		ham.addMouseListener(this);
-
-		
-		jalapeno.setText("j");
-		jalapeno.setBounds(600, 450, 100, 100);
-		jalapeno.setIcon(new ImageIcon(this.getClass().getResource("j.png")));
-		jalapeno.addMouseListener(this);
-
-		
-		kimchi.setText("k");
-		kimchi.setBounds(700, 450, 100, 100);
-		kimchi.setIcon(new ImageIcon(this.getClass().getResource("k.png")));
-		kimchi.addMouseListener(this);
-
-		
-		lamb.setText("l");
-		lamb.setBounds(600, 550, 100, 100);
-		lamb.setIcon(new ImageIcon(this.getClass().getResource("l.png")));
-		lamb.addMouseListener(this);
-
-		
-		zucchini.setText("z");
-		zucchini.setBounds(700, 550, 100, 100);
-		zucchini.setIcon(new ImageIcon(this.getClass().getResource("z.png")));
-		zucchini.addMouseListener(this);
-
-		
-		confirm.setText("confirm");
-		confirm.setBounds(500, 650, 300, 150);
-		confirm.setIcon(new ImageIcon(this.getClass().getResource("Confirm.png")));
-		confirm.addMouseListener(this);
-
-		
+	}
+	
+	private void setupSentenceBox() {
 		//sentenceCenter.setText("<html><body style='text-align: center'><p>Long ass sentence needs a linebreak blah blah this is too long what about some more and it even works underwater!!</p></body></html>");
+		Border border = BorderFactory.createLineBorder(new Color(0x313131), 5);
 		sentence.setBounds(0, 550, 500, 250);
 		ImageIcon sentenceImage = new ImageIcon(this.getClass().getResource("Sentence.png"));
 		sentence.setIcon(new ImageIcon(sentenceImage.getImage().getScaledInstance(500,  250,  Image.SCALE_DEFAULT)));
@@ -433,7 +414,7 @@ public class MyFrame extends JFrame implements MouseListener {
 		sentenceCenter.setFont(new Font("MS Gothic", Font.BOLD, 25));
 		sentenceCenter.setText("<html><body style='text-align: center'><p>" + promptObject.getSentence() + "</p></body></html>");
 		
-		JLayeredPane bottomLeft = new JLayeredPane();
+		bottomLeft = new JLayeredPane();
 		bottomLeft.setBounds(0, 550, 500, 250);
 		bottomLeft.add(sentenceCenter);
 		bottomLeft.add(sentence);
@@ -449,6 +430,10 @@ public class MyFrame extends JFrame implements MouseListener {
 		topBar.setVerticalAlignment(JLabel.CENTER);
 		topBar.setBorder(border);
 
+		this.add(bottomLeft);
+	}
+
+	private void populateCountertop() {
 		this.add(tomatoSauce);
 		this.add(cheese);
 		this.add(bake);
@@ -543,8 +528,29 @@ public class MyFrame extends JFrame implements MouseListener {
 		}
 		
 		this.add(countertop);
-		this.add(bottomLeft);
-		//this.add(background);
+	}
+	
+	// ====================================================================================================
+	// !!!                                      CONSTRUCTOR                                             !!!
+	// ====================================================================================================
+	
+	public MyFrame() {
+		setupPregameMenus();
+
+		setupPostgameMenus();
+		
+		setupPrompt();
+
+		setWindowProperties();
+		
+		setupCountertop();
+
+		setupRightPanel();
+
+		populateCountertop();
+
+		setupSentenceBox();
+
 		this.getContentPane().setBackground(new Color(0xEEE9D1));
 		this.setVisible(true);
 	}
@@ -635,332 +641,221 @@ public class MyFrame extends JFrame implements MouseListener {
 	}
 	
 	public void invertCuts() {
-		if (pizza.get(1).getIcon() == zeroCutsIcon)
-		{
+		int cutsIndex = 1;
+		Icon cutsIcon = pizza.get(cutsIndex).getIcon();
+		if (cutsIcon == zeroCutsIcon) {
 			pizza.get(1).setIcon(burntZeroCutsIcon);
-		}
-		else if (pizza.get(1).getIcon() == oneCutIcon)
-		{
+		} else if (cutsIcon == oneCutIcon) {
 			pizza.get(1).setIcon(burntOneCutIcon);
 			
-		}
-		else if (pizza.get(1).getIcon() == twoCutsIcon)
-		{
+		} else if (cutsIcon == twoCutsIcon) {
 			pizza.get(1).setIcon(burntTwoCutsIcon);
 			
-		}
-		else if (pizza.get(1).getIcon() == threeCutsIcon)
-		{
+		} else if (cutsIcon == threeCutsIcon) {
 			pizza.get(1).setIcon(burntThreeCutsIcon);
 			
+		} else if (cutsIcon == fourCutsIcon) {
+			pizza.get(1).setIcon(burntFourCutsIcon);	
 		}
-		else if (pizza.get(1).getIcon() == fourCutsIcon)
-		{
-			pizza.get(1).setIcon(burntFourCutsIcon);
-			
-		}
-		countertop.moveToFront(pizza.get(1));
+		countertop.moveToFront(pizza.get(cutsIndex));
 	}
 	
 	public void bakePizza() {
 		bakedAlready = true;
-		if (pizza.get(0).getIcon() == doughIcon)
-		{
+		int bakeIndex = 0;
+		int cutsIndex = 1;
+		Icon bakeIcon = pizza.get(bakeIndex).getIcon();
+		if (bakeIcon == doughIcon) {
 			inputtedMap.put("b", inputtedMap.get("b") + 1);
 			pizza.get(0).setIcon(bakedDoughIcon);
 			countertop.moveToFront(pizza.get(0));
-		}
-		else if (pizza.get(0).getIcon() == bakedDoughIcon)
-		{
+		} else if (bakeIcon == bakedDoughIcon) {
 			inputtedMap.put("b", inputtedMap.get("b") + 1);
 			pizza.get(0).setIcon(darkDoughIcon);
 			countertop.moveToFront(pizza.get(0));
-		}
-		else if (pizza.get(0).getIcon() == darkDoughIcon)
-		{
+		} else if (bakeIcon == darkDoughIcon) {
 			inputtedMap.put("b", inputtedMap.get("b") + 1);
 			pizza.get(0).setIcon(burntDoughIcon);
 			countertop.moveToFront(pizza.get(0));
 			invertCuts();
-		}
-		else // already baked too many times
-		{
+		} else { // already baked too many times
 			return;
 		}
-		for (int i = 2; i < pizza.size(); i++)
-		{
-			if (pizza.get(i).getIcon() == tomatoSauceIcon)
-			{
+
+		for (int i = 2; i < pizza.size(); i++) {
+			Icon toppingIcon = pizza.get(i).getIcon();
+			if (toppingIcon == tomatoSauceIcon) {
 				pizza.get(i).setIcon(bakedTomatoSauceIcon);
 				countertop.moveToFront(pizza.get(i));
-			}
-			else if (pizza.get(i).getIcon() == bakedTomatoSauceIcon)
-			{
+			} else if (toppingIcon == bakedTomatoSauceIcon) {
 				pizza.get(i).setIcon(darkTomatoSauceIcon);
 				countertop.moveToFront(pizza.get(i));
-			}
-			else if (pizza.get(i).getIcon() == darkTomatoSauceIcon)
-			{
+			} else if (toppingIcon == darkTomatoSauceIcon) {
 				pizza.get(i).setIcon(burntTomatoSauceIcon);
 				countertop.moveToFront(pizza.get(i));
-			}
-			else if (pizza.get(i).getIcon() == cheeseIcon)
-			{
+			} else if (toppingIcon == cheeseIcon) {
 				pizza.get(i).setIcon(bakedCheeseIcon);
 				countertop.moveToFront(pizza.get(i));
-			}
-			else if (pizza.get(i).getIcon() == bakedCheeseIcon)
-			{
+			} else if (toppingIcon == bakedCheeseIcon) {
 				pizza.get(i).setIcon(darkCheeseIcon);
 				countertop.moveToFront(pizza.get(i));
-			}
-			else if (pizza.get(i).getIcon() == darkCheeseIcon)
-			{
+			} else if (toppingIcon == darkCheeseIcon) {
 				pizza.get(i).setIcon(burntCheeseIcon);
 				countertop.moveToFront(pizza.get(i));
-			}
-			else if (pizza.get(i).getIcon() == pepperoniIcon)
-			{
+			} else if (toppingIcon == pepperoniIcon) {
 				pizza.get(i).setIcon(bakedPepperoniIcon);
 				countertop.moveToFront(pizza.get(i));
-			}
-			else if (pizza.get(i).getIcon() == bakedPepperoniIcon)
-			{
+			} else if (toppingIcon == bakedPepperoniIcon) {
 				pizza.get(i).setIcon(darkPepperoniIcon);
 				countertop.moveToFront(pizza.get(i));
-			}
-			else if (pizza.get(i).getIcon() == darkPepperoniIcon)
-			{
+			} else if (toppingIcon == darkPepperoniIcon) {
 				pizza.get(i).setIcon(burntPepperoniIcon);
 				countertop.moveToFront(pizza.get(i));
-			}
-			else if (pizza.get(i).getIcon() == sausageIcon)
-			{
+			} else if (toppingIcon == sausageIcon) {
 				pizza.get(i).setIcon(bakedSausageIcon);
 				countertop.moveToFront(pizza.get(i));
-			}
-			else if (pizza.get(i).getIcon() == bakedSausageIcon)
-			{
+			} else if (toppingIcon == bakedSausageIcon) {
 				pizza.get(i).setIcon(darkSausageIcon);
 				countertop.moveToFront(pizza.get(i));
-			}
-			else if (pizza.get(i).getIcon() == darkSausageIcon)
-			{
+			} else if (toppingIcon == darkSausageIcon) {
 				pizza.get(i).setIcon(burntSausageIcon);
 				countertop.moveToFront(pizza.get(i));
-			}
-			else if (pizza.get(i).getIcon() == mushroomIcon)
-			{
+			} else if (toppingIcon == mushroomIcon) {
 				pizza.get(i).setIcon(bakedMushroomIcon);
 				countertop.moveToFront(pizza.get(i));
-			}
-			else if (pizza.get(i).getIcon() == bakedMushroomIcon)
-			{
+			} else if (toppingIcon == bakedMushroomIcon) {
 				pizza.get(i).setIcon(darkMushroomIcon);
 				countertop.moveToFront(pizza.get(i));
-			}
-			else if (pizza.get(i).getIcon() == darkMushroomIcon)
-			{
+			} else if (toppingIcon == darkMushroomIcon) {
 				pizza.get(i).setIcon(burntMushroomIcon);
 				countertop.moveToFront(pizza.get(i));
-			}
-			else if (pizza.get(i).getIcon() == onionIcon)
-			{
+			} else if (toppingIcon == onionIcon) {
 				pizza.get(i).setIcon(bakedOnionIcon);
 				countertop.moveToFront(pizza.get(i));
-			}
-			else if (pizza.get(i).getIcon() == bakedOnionIcon)
-			{
+			} else if (toppingIcon == bakedOnionIcon) {
 				pizza.get(i).setIcon(darkOnionIcon);
 				countertop.moveToFront(pizza.get(i));
-			}
-			else if (pizza.get(i).getIcon() == darkOnionIcon)
-			{
-				pizza.get(i).setIcon(darkOnionIcon);
+			} else if (toppingIcon == darkOnionIcon) {
+				pizza.get(i).setIcon(burntOnionIcon);
 				countertop.moveToFront(pizza.get(i));
-			}
-			else if (pizza.get(i).getIcon() == greenPepperIcon)
-			{
+			} else if (toppingIcon == greenPepperIcon) {
 				pizza.get(i).setIcon(bakedGreenPepperIcon);
 				countertop.moveToFront(pizza.get(i));
-			}
-			else if (pizza.get(i).getIcon() == bakedGreenPepperIcon)
-			{
+			} else if (toppingIcon == bakedGreenPepperIcon) {
 				pizza.get(i).setIcon(darkGreenPepperIcon);
 				countertop.moveToFront(pizza.get(i));
-			}
-			else if (pizza.get(i).getIcon() == darkGreenPepperIcon)
-			{
+			} else if (toppingIcon == darkGreenPepperIcon) {
 				pizza.get(i).setIcon(burntGreenPepperIcon);
 				countertop.moveToFront(pizza.get(i));
-			}
-			else if (pizza.get(i).getIcon() == anchovyIcon)
-			{
+			} else if (toppingIcon == anchovyIcon) {
 				pizza.get(i).setIcon(bakedAnchovyIcon);
 				countertop.moveToFront(pizza.get(i));
-			}
-			else if (pizza.get(i).getIcon() == bakedAnchovyIcon)
-			{
+			} else if (toppingIcon == bakedAnchovyIcon) {
 				pizza.get(i).setIcon(darkAnchovyIcon);
 				countertop.moveToFront(pizza.get(i));
-			}
-			else if (pizza.get(i).getIcon() == darkAnchovyIcon)
-			{
+			} else if (toppingIcon == darkAnchovyIcon) {
 				pizza.get(i).setIcon(burntAnchovyIcon);
 				countertop.moveToFront(pizza.get(i));
-			}
-			else if (pizza.get(i).getIcon() == eggIcon)
-			{
+			} else if (toppingIcon == eggIcon) {
 				pizza.get(i).setIcon(bakedEggIcon);
 				countertop.moveToFront(pizza.get(i));
-			}
-			else if (pizza.get(i).getIcon() == bakedEggIcon)
-			{
+			} else if (toppingIcon == bakedEggIcon) {
 				pizza.get(i).setIcon(darkEggIcon);
 				countertop.moveToFront(pizza.get(i));
-			}
-			else if (pizza.get(i).getIcon() == darkEggIcon)
-			{
+			} else if (toppingIcon == darkEggIcon) {
 				pizza.get(i).setIcon(burntEggIcon);
 				countertop.moveToFront(pizza.get(i));
-			}
-			else if (pizza.get(i).getIcon() == hamIcon)
-			{
+			} else if (toppingIcon == hamIcon) {
 				pizza.get(i).setIcon(bakedHamIcon);
 				countertop.moveToFront(pizza.get(i));
-			}
-			else if (pizza.get(i).getIcon() == bakedHamIcon)
-			{
+			} else if (toppingIcon == bakedHamIcon) {
 				pizza.get(i).setIcon(darkHamIcon);
 				countertop.moveToFront(pizza.get(i));
-			}
-			else if (pizza.get(i).getIcon() == darkHamIcon)
-			{
+			} else if (toppingIcon == darkHamIcon) {
 				pizza.get(i).setIcon(burntHamIcon);
 				countertop.moveToFront(pizza.get(i));
-			}
-			else if (pizza.get(i).getIcon() == jalapenoIcon)
-			{
+			} else if (toppingIcon == jalapenoIcon) {
 				pizza.get(i).setIcon(bakedJalapenoIcon);
 				countertop.moveToFront(pizza.get(i));
-			}
-			else if (pizza.get(i).getIcon() == bakedJalapenoIcon)
-			{
+			} else if (toppingIcon == bakedJalapenoIcon) {
 				pizza.get(i).setIcon(darkJalapenoIcon);
 				countertop.moveToFront(pizza.get(i));
-			}
-			else if (pizza.get(i).getIcon() == darkJalapenoIcon)
-			{
+			} else if (toppingIcon == darkJalapenoIcon) {
 				pizza.get(i).setIcon(burntJalapenoIcon);
 				countertop.moveToFront(pizza.get(i));
-			}
-			else if (pizza.get(i).getIcon() == kimchiIcon)
-			{
+			} else if (toppingIcon == kimchiIcon) {
 				pizza.get(i).setIcon(bakedKimchiIcon);
 				countertop.moveToFront(pizza.get(i));
-			}
-			else if (pizza.get(i).getIcon() == bakedKimchiIcon)
-			{
+			} else if (toppingIcon == bakedKimchiIcon) {
 				pizza.get(i).setIcon(darkKimchiIcon);
 				countertop.moveToFront(pizza.get(i));
-			}
-			else if (pizza.get(i).getIcon() == darkKimchiIcon)
-			{
+			} else if (toppingIcon == darkKimchiIcon) {
 				pizza.get(i).setIcon(burntKimchiIcon);
 				countertop.moveToFront(pizza.get(i));
-			}
-			else if (pizza.get(i).getIcon() == lambIcon)
-			{
+			} else if (toppingIcon == lambIcon) {
 				pizza.get(i).setIcon(bakedLambIcon);
 				countertop.moveToFront(pizza.get(i));
-			}
-			else if (pizza.get(i).getIcon() == bakedLambIcon)
-			{
+			} else if (toppingIcon == bakedLambIcon) {
 				pizza.get(i).setIcon(darkLambIcon);
 				countertop.moveToFront(pizza.get(i));
-			}
-			else if (pizza.get(i).getIcon() == darkLambIcon)
-			{
+			} else if (toppingIcon == darkLambIcon) {
 				pizza.get(i).setIcon(burntLambIcon);
 				countertop.moveToFront(pizza.get(i));
-			}
-			else if (pizza.get(i).getIcon() == zucchiniIcon)
-			{
+			} else if (toppingIcon == zucchiniIcon) {
 				pizza.get(i).setIcon(bakedZucchiniIcon);
 				countertop.moveToFront(pizza.get(i));
-			}
-			else if (pizza.get(i).getIcon() == bakedZucchiniIcon)
-			{
+			} else if (toppingIcon == bakedZucchiniIcon) {
 				pizza.get(i).setIcon(darkZucchiniIcon);
 				countertop.moveToFront(pizza.get(i));
-			}
-			else if (pizza.get(i).getIcon() == darkZucchiniIcon)
-			{
+			} else if (toppingIcon == darkZucchiniIcon) {
 				pizza.get(i).setIcon(burntZucchiniIcon);
 				countertop.moveToFront(pizza.get(i));
-			}
-			else if (pizza.get(i).getIcon() == emptyTopping)
-			{
+			} else if (toppingIcon == emptyTopping) {
 				countertop.moveToFront(pizza.get(i));
 			}
 		}
-		countertop.moveToFront(pizza.get(1));
+		countertop.moveToFront(pizza.get(cutsIndex));
 	}
 	
 	public void cutPizza() {
 		cutAlready = true;
+		int cutsIndex = 1;
+		Icon cutsIcon = pizza.get(cutsIndex).getIcon();
 		
 		// a cut will be successfully made (there's not already max cuts)
-		if (pizza.get(1).getIcon() != fourCutsIcon && pizza.get(1).getIcon() != burntFourCutsIcon)
-		{
+		if (cutsIcon != fourCutsIcon && cutsIcon != burntFourCutsIcon) {
 			inputtedMap.put("-", inputtedMap.get("-") + 1);
 		}
 		
-		if (pizza.get(1).getIcon() == zeroCutsIcon)
-		{
-			pizza.get(1).setIcon(oneCutIcon);
-		}
-		else if (pizza.get(1).getIcon() == oneCutIcon)
-		{
-			pizza.get(1).setIcon(twoCutsIcon);
-		}
-		else if (pizza.get(1).getIcon() == twoCutsIcon)
-		{
-			pizza.get(1).setIcon(threeCutsIcon);
-		}
-		else if (pizza.get(1).getIcon() == threeCutsIcon)
-		{
-			pizza.get(1).setIcon(fourCutsIcon);
-		}
-		else if (pizza.get(1).getIcon() == burntZeroCutsIcon)
-		{
-			pizza.get(1).setIcon(burntOneCutIcon);
-		}
-		else if (pizza.get(1).getIcon() == burntOneCutIcon)
-		{
-			pizza.get(1).setIcon(burntTwoCutsIcon);
-		}
-		else if (pizza.get(1).getIcon() == burntTwoCutsIcon)
-		{
-			pizza.get(1).setIcon(burntThreeCutsIcon);
-		}
-		else if (pizza.get(1).getIcon() == burntThreeCutsIcon)
-		{
-			pizza.get(1).setIcon(burntFourCutsIcon);
+		if (cutsIcon == zeroCutsIcon) {
+			pizza.get(cutsIndex).setIcon(oneCutIcon);
+		} else if (cutsIcon == oneCutIcon) {
+			pizza.get(cutsIndex).setIcon(twoCutsIcon);
+		} else if (cutsIcon == twoCutsIcon) {
+			pizza.get(cutsIndex).setIcon(threeCutsIcon);
+		} else if (cutsIcon == threeCutsIcon) {
+			pizza.get(cutsIndex).setIcon(fourCutsIcon);
+		} else if (cutsIcon == burntZeroCutsIcon) {
+			pizza.get(cutsIndex).setIcon(burntOneCutIcon);
+		} else if (cutsIcon == burntOneCutIcon) {
+			pizza.get(cutsIndex).setIcon(burntTwoCutsIcon);
+		} else if (cutsIcon == burntTwoCutsIcon) {
+			pizza.get(cutsIndex).setIcon(burntThreeCutsIcon);
+		} else if (cutsIcon == burntThreeCutsIcon) {
+			pizza.get(cutsIndex).setIcon(burntFourCutsIcon);
 		}
 		
-
-		countertop.moveToFront(pizza.get(1));
+		countertop.moveToFront(pizza.get(cutsIndex));
 	}
 	
 	
 	// check if inputtedMap and promptMap contain the same things
+	// If correct, reward players with points equal to (10 * correct actions)
 	public boolean checkPizza() {
 		int count = 0;
 		for (Map.Entry<String, Integer> set : promptMap.entrySet())
 		{
-			if (inputtedMap.get(set.getKey()) != set.getValue())
-			{
+			if (inputtedMap.get(set.getKey()) != set.getValue()) {
 				return false;
 			}
 			count += set.getValue();
@@ -969,33 +864,32 @@ public class MyFrame extends JFrame implements MouseListener {
 		return true;
 	}
 	
+	// Player did not submit pizza in time
 	public void slowPizza() {
 		sentenceCenter.setForeground(new Color(0xD82507));
 		sentenceCenter.setFont(new Font("MS Gothic", Font.BOLD, 40));
 		sentenceCenter.setText("<html><body style='text-align: center'><p>Too slow.</p></body></html>");
 		lives--;
-		if (lives == 0)
-		{
+		if (lives == 0) {
 			started = false;
 		}
 		prepareNext();
 	}
 	
+	// Player submitted incorrect pizza
 	public void wrongPizza() {
 		sentenceCenter.setForeground(new Color(0xD82507));
 		sentenceCenter.setFont(new Font("MS Gothic", Font.BOLD, 40));
 		sentenceCenter.setText("<html><body style='text-align: center'><p>Wrong.</p></body></html>");
 		lives--;
-		if (lives == 0)
-		{
+		if (lives == 0) {
 			started = false;
 		}
 		prepareNext();
 	}
 	
 	public void prepareNext() {
-		if (started)
-		{
+		if (started) {
 			ActionListener taskPerformer = new ActionListener() {
 	            public void actionPerformed(ActionEvent evt) {
 	                //...Perform a task...
@@ -1008,9 +902,7 @@ public class MyFrame extends JFrame implements MouseListener {
 	        Timer timer = new Timer(1000, taskPerformer);
 	        timer.setRepeats(false);
 	        timer.start();
-		}
-		else
-		{
+		} else {
 			ActionListener taskPerformer = new ActionListener() {
 				public void actionPerformed(ActionEvent e)
 				{
@@ -1034,8 +926,8 @@ public class MyFrame extends JFrame implements MouseListener {
 	// ======================================================================================================
 	
 	public void mouseClicked(MouseEvent e) {
-		if (e.getSource() == play)
-		{
+		Object source = e.getSource();
+		if (source == play) {
 			started = true;
 			menu.setVisible(false);
 			play.setVisible(false);
@@ -1045,88 +937,62 @@ public class MyFrame extends JFrame implements MouseListener {
 			MySwingWorker worker = new MySwingWorker(duration, topBar);
 			workerList.add(worker);
 			worker.execute();
-		}
-		if (e.getSource() == tutorial)
-		{
+		} if (source == tutorial) {
 			tutorialPage.setVisible(true);
 			menu.setVisible(false);
 			tutorial.setVisible(false);
 			play.setBounds(300, 675, 200, 100);
 		}
 		
-		if (started)
-		{
-			if (e.getSource() == bake)
-			{
+		if (started) {
+			if (source == bake){
 				bakePizza();
-			}
-			else if (e.getSource() == cut)
-			{
+			} else if (source == cut) {
 				cutPizza();
-			}
-			else if (e.getSource() == confirm)
-			{
+			} else if (source == confirm) {
 				workerList.get(workerIndex).cancel(true);
 				boolean valid = checkPizza();
 				
 				// !!!
 				// placeholder, make something in the frame say "correct" or "wrong" instead
-				if (valid)
-				{
+				if (valid) {
 					pizzas++;
 					points += currentPoints;
 					sentenceCenter.setForeground(new Color(0x219908));
 					sentenceCenter.setFont(new Font("MS Gothic", Font.BOLD, 40));
 					sentenceCenter.setText("<html><body style='text-align: center'><p>Correct!</p></body></html>");
 					prepareNext();
-				}
-				else
-				{
+				} else {
 					wrongPizza();
 				}
 			}
 			
 			// CAN ONLY ADD TOPPINGS IF HAVEN'T BAKED OR CUT YET
-			if (!bakedAlready && !cutAlready)
-			{
-				if (!saucedAlready && !cheesedAlready && !toppedAlready && e.getSource() == tomatoSauce)
-				{
-					if (pizzaIndex == pizza.size()) // pizza already full
-					{
+			if (!bakedAlready && !cutAlready) {
+				if (!saucedAlready && !cheesedAlready && !toppedAlready && source == tomatoSauce) {
+					if (pizzaIndex == pizza.size())  { // pizza already full
 						return;
-					}
-					else
-					{
+					} else {
 						inputtedMap.put("t", inputtedMap.get("t") + 1);
 						saucedAlready = true;
 						pizza.get(pizzaIndex).setIcon(tomatoSauceIcon);
 						countertop.moveToFront(pizza.get(pizzaIndex));
 						pizzaIndex++;
 					}
-				}
-				else if (!toppedAlready && e.getSource() == cheese)
-				{
-					if (pizzaIndex == pizza.size())
-					{
+				} else if (!toppedAlready && source == cheese) {
+					if (pizzaIndex == pizza.size()) {
 						return;
-					}
-					else
-					{
+					} else {
 						inputtedMap.put("c", inputtedMap.get("c") + 1);
 						cheesedAlready = true;
 						pizza.get(pizzaIndex).setIcon(cheeseIcon);
 						countertop.moveToFront(pizza.get(pizzaIndex));
 						pizzaIndex++;
 					}
-				}
-				else if (!pepperoniedAlready && e.getSource() == pepperoni)
-				{
-					if (pizzaIndex == pizza.size())
-					{
+				} else if (!pepperoniedAlready && source == pepperoni) {
+					if (pizzaIndex == pizza.size()) {
 						return;
-					}
-					else
-					{
+					} else {
 						inputtedMap.put("p", inputtedMap.get("p") + 1);
 						toppedAlready = true;
 						pepperoniedAlready = true;
@@ -1134,15 +1000,10 @@ public class MyFrame extends JFrame implements MouseListener {
 						countertop.moveToFront(pizza.get(pizzaIndex));
 						pizzaIndex++;
 					}
-				}
-				else if (!sausagedAlready && e.getSource() == sausage)
-				{
-					if (pizzaIndex == pizza.size())
-					{
+				} else if (!sausagedAlready && source == sausage) {
+					if (pizzaIndex == pizza.size()) {
 						return;
-					}
-					else
-					{
+					} else {
 						inputtedMap.put("s", inputtedMap.get("s") + 1);
 						toppedAlready = true;
 						sausagedAlready = true;
@@ -1150,15 +1011,10 @@ public class MyFrame extends JFrame implements MouseListener {
 						countertop.moveToFront(pizza.get(pizzaIndex));
 						pizzaIndex++;
 					}
-				}
-				else if (!mushroomedAlready && e.getSource() == mushroom)
-				{
-					if (pizzaIndex == pizza.size())
-					{
+				} else if (!mushroomedAlready && source == mushroom) {
+					if (pizzaIndex == pizza.size()) {
 						return;
-					}
-					else
-					{
+					} else {
 						inputtedMap.put("m", inputtedMap.get("m") + 1);
 						toppedAlready = true;
 						mushroomedAlready = true;
@@ -1166,15 +1022,10 @@ public class MyFrame extends JFrame implements MouseListener {
 						countertop.moveToFront(pizza.get(pizzaIndex));
 						pizzaIndex++;
 					}
-				}
-				else if (!onionedAlready && e.getSource() == onion)
-				{
-					if (pizzaIndex == pizza.size())
-					{
+				} else if (!onionedAlready && source == onion) {
+					if (pizzaIndex == pizza.size()) {
 						return;
-					}
-					else
-					{
+					} else {
 						inputtedMap.put("o", inputtedMap.get("o") + 1);
 						toppedAlready = true;
 						onionedAlready = true;
@@ -1182,15 +1033,10 @@ public class MyFrame extends JFrame implements MouseListener {
 						countertop.moveToFront(pizza.get(pizzaIndex));
 						pizzaIndex++;
 					}
-				}
-				else if (!greenPepperedAlready && e.getSource() == greenPepper)
-				{
-					if (pizzaIndex == pizza.size())
-					{
+				} else if (!greenPepperedAlready && source == greenPepper) {
+					if (pizzaIndex == pizza.size()) {
 						return;
-					}
-					else
-					{
+					} else {
 						inputtedMap.put("g", inputtedMap.get("g") + 1);
 						toppedAlready = true;
 						greenPepperedAlready = true;
@@ -1198,15 +1044,10 @@ public class MyFrame extends JFrame implements MouseListener {
 						countertop.moveToFront(pizza.get(pizzaIndex));
 						pizzaIndex++;
 					}
-				}
-				else if (!anchoviedAlready && e.getSource() == anchovy)
-				{
-					if (pizzaIndex == pizza.size())
-					{
+				} else if (!anchoviedAlready && source == anchovy) {
+					if (pizzaIndex == pizza.size()) {
 						return;
-					}
-					else
-					{
+					} else {
 						inputtedMap.put("a", inputtedMap.get("a") + 1);
 						toppedAlready = true;
 						anchoviedAlready = true;
@@ -1214,15 +1055,10 @@ public class MyFrame extends JFrame implements MouseListener {
 						countertop.moveToFront(pizza.get(pizzaIndex));
 						pizzaIndex++;
 					}
-				}
-				else if (!eggedAlready && e.getSource() == egg)
-				{
-					if (pizzaIndex == pizza.size())
-					{
+				} else if (!eggedAlready && source == egg) {
+					if (pizzaIndex == pizza.size()) {
 						return;
-					}
-					else
-					{
+					} else {
 						inputtedMap.put("e", inputtedMap.get("e") + 1);
 						toppedAlready = true;
 						eggedAlready = true;
@@ -1230,15 +1066,10 @@ public class MyFrame extends JFrame implements MouseListener {
 						countertop.moveToFront(pizza.get(pizzaIndex));
 						pizzaIndex++;
 					}
-				}
-				else if (!hammedAlready && e.getSource() == ham)
-				{
-					if (pizzaIndex == pizza.size())
-					{
+				} else if (!hammedAlready && source == ham) {
+					if (pizzaIndex == pizza.size()) {
 						return;
-					}
-					else
-					{
+					} else {
 						inputtedMap.put("h", inputtedMap.get("h") + 1);
 						toppedAlready = true;
 						hammedAlready = true;
@@ -1246,15 +1077,10 @@ public class MyFrame extends JFrame implements MouseListener {
 						countertop.moveToFront(pizza.get(pizzaIndex));
 						pizzaIndex++;
 					}
-				}
-				else if (!jalapenoedAlready && e.getSource() == jalapeno)
-				{
-					if (pizzaIndex == pizza.size())
-					{
+				} else if (!jalapenoedAlready && source == jalapeno) {
+					if (pizzaIndex == pizza.size()) {
 						return;
-					}
-					else
-					{
+					} else {
 						inputtedMap.put("j", inputtedMap.get("j") + 1);
 						toppedAlready = true;
 						jalapenoedAlready = true;
@@ -1262,15 +1088,10 @@ public class MyFrame extends JFrame implements MouseListener {
 						countertop.moveToFront(pizza.get(pizzaIndex));
 						pizzaIndex++;
 					}
-				}
-				else if (!kimchiedAlready && e.getSource() == kimchi)
-				{
-					if (pizzaIndex == pizza.size())
-					{
+				} else if (!kimchiedAlready && source == kimchi) {
+					if (pizzaIndex == pizza.size()) {
 						return;
-					}
-					else
-					{
+					} else {
 						inputtedMap.put("k", inputtedMap.get("k") + 1);
 						toppedAlready = true;
 						kimchiedAlready = true;
@@ -1278,15 +1099,10 @@ public class MyFrame extends JFrame implements MouseListener {
 						countertop.moveToFront(pizza.get(pizzaIndex));
 						pizzaIndex++;
 					}
-				}
-				else if (!lambedAlready && e.getSource() == lamb)
-				{
-					if (pizzaIndex == pizza.size())
-					{
+				} else if (!lambedAlready && source == lamb) {
+					if (pizzaIndex == pizza.size()) {
 						return;
-					}
-					else
-					{
+					} else {
 						inputtedMap.put("l", inputtedMap.get("l") + 1);
 						toppedAlready = true;
 						lambedAlready = true;
@@ -1294,15 +1110,10 @@ public class MyFrame extends JFrame implements MouseListener {
 						countertop.moveToFront(pizza.get(pizzaIndex));
 						pizzaIndex++;
 					}
-				}
-				else if (!zucchiniedAlready && e.getSource() == zucchini)
-				{
-					if (pizzaIndex == pizza.size())
-					{
+				} else if (!zucchiniedAlready && source == zucchini) {
+					if (pizzaIndex == pizza.size()) {
 						return;
-					}
-					else
-					{
+					} else {
 						inputtedMap.put("z", inputtedMap.get("z") + 1);
 						toppedAlready = true;
 						zucchiniedAlready = true;
@@ -1348,40 +1159,30 @@ public class MyFrame extends JFrame implements MouseListener {
 	}
 	
 	public void mousePressed(MouseEvent e) {
-		if (started)
-		{
-			if (e.getSource() == confirm)
-			{
+		if (started) {
+			if (e.getSource() == confirm) {
 				confirm.setIcon(new ImageIcon(this.getClass().getResource("Pressed Confirm.png")));
 			}
 		}
 	}
 	public void mouseEntered(MouseEvent e) {
-		if (e.getSource() == play)
-		{
+		if (e.getSource() == play) {
 			play.setIcon(new ImageIcon(this.getClass().getResource("Hover Play.png")));
-		}
-		else if (e.getSource() == tutorial)
-		{
+		} else if (e.getSource() == tutorial) {
 			tutorial.setIcon(new ImageIcon(this.getClass().getResource("Hover Tutorial.png")));
 		}
 	}
 	public void mouseReleased(MouseEvent e) {
-		if (started)
-		{
-			if (e.getSource() == confirm)
-			{
+		if (started) {
+			if (e.getSource() == confirm) {
 				confirm.setIcon(new ImageIcon(this.getClass().getResource("Confirm.png")));
 			}
 		}
 	}
 	public void mouseExited(MouseEvent e) {
-		if (e.getSource() == play)
-		{
+		if (e.getSource() == play) {
 			play.setIcon(new ImageIcon(this.getClass().getResource("Play.png")));
-		}
-		else if (e.getSource() == tutorial)
-		{
+		} else if (e.getSource() == tutorial) {
 			tutorial.setIcon(new ImageIcon(this.getClass().getResource("Tutorial.png")));
 		}
 	}

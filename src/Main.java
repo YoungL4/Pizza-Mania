@@ -1,6 +1,4 @@
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
-import java.util.ArrayList;
 class Main {
 	
 	 public static MyFrame getFrame() {
@@ -310,6 +308,4 @@ class Main {
     System.out.println("Congratulations, you successfully made " + pizzasMade + " " + plural + ". Your final score is: ");
     System.out.println(score);
     */
-
-    
 }

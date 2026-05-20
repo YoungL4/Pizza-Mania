@@ -12,29 +12,28 @@ public class Sentence
   *
   */
 
-  //depending on p, decide sentence structure
-  public static String genSentence(ArrayList<String> arr, int p)
+  public static String genSentence(ArrayList<String> toppings, int sentenceStructure)
   {
     
     String y = ""; // will contain final result
     
-    if (p == 0)
+    if (sentenceStructure == 0)
     {
       y += "I want a pizza with";
-      for (int i = 0; i < arr.size() - 1; i++)
+      for (int i = 0; i < toppings.size() - 1; i++)
       {
-        y += " " + arr.get(i);
-        if (arr.size() > 2)
+        y += " " + toppings.get(i);
+        if (toppings.size() > 2)
         y += ",";
       }
-      if (arr.size() > 1)
+      if (toppings.size() > 1)
       y += " and";
-      y += " " + arr.get(arr.size() - 1) + ".";
+      y += " " + toppings.get(toppings.size() - 1) + ".";
     }
-    else if (p == 1)
+    else if (sentenceStructure == 1)
     {
       String a;
-      if (arr.get(0).substring(0, 1).equals("a") || arr.get(0).substring(0, 1).equals("o") || arr.get(0).substring(0, 1).equals("e"))
+      if (toppings.get(0).substring(0, 1).equals("a") || toppings.get(0).substring(0, 1).equals("o") || toppings.get(0).substring(0, 1).equals("e"))
       {
         a = "an";
       }
@@ -44,59 +43,59 @@ public class Sentence
       }
       y += "Give me " + a;
 
-      for (int i = 0; i < arr.size() - 1; i++)
+      for (int i = 0; i < toppings.size() - 1; i++)
       {
-        y += " " + arr.get(i);
-        if (arr.size() > 2)
+        y += " " + toppings.get(i);
+        if (toppings.size() > 2)
         y += ",";
       }
-      if (arr.size() > 1)
+      if (toppings.size() > 1)
       y += " and";
-      y += " " + arr.get(arr.size() - 1) + " pizza.";
+      y += " " + toppings.get(toppings.size() - 1) + " pizza.";
     }
-    else if (p == 2)
+    else if (sentenceStructure == 2)
     {
       y += "Hi, umm... can I get a pizza with";
-      for (int i = 0; i < arr.size() - 1; i++)
+      for (int i = 0; i < toppings.size() - 1; i++)
       {
-        y += " " + arr.get(i);
-        if (arr.size() > 2)
+        y += " " + toppings.get(i);
+        if (toppings.size() > 2)
         y += ",";
       }
-      if (arr.size() > 1)
+      if (toppings.size() > 1)
       y += " and";
-      y += " " + arr.get(arr.size() - 1) + "?";
+      y += " " + toppings.get(toppings.size() - 1) + "?";
     }
-    else if (p == 3)
+    else if (sentenceStructure == 3)
     {
       y += "One";
-      for (int i = 0; i < arr.size() - 1; i++)
+      for (int i = 0; i < toppings.size() - 1; i++)
       {
-        y += " " + arr.get(i);
-        if (arr.size() > 2)
+        y += " " + toppings.get(i);
+        if (toppings.size() > 2)
         y += ",";
       }
-      if (arr.size() > 1)
+      if (toppings.size() > 1)
       y += " and";
-      y += " " + arr.get(arr.size() - 1) + " pizza. Hurry up.";
+      y += " " + toppings.get(toppings.size() - 1) + " pizza. Hurry up.";
     }
-    else if (p == 4)
+    else if (sentenceStructure == 4)
     {
       y += "Do you have";
-      for (int i = 0; i < arr.size() - 1; i++)
+      for (int i = 0; i < toppings.size() - 1; i++)
       {
-        y += " " + arr.get(i);
-        if (arr.size() > 2)
+        y += " " + toppings.get(i);
+        if (toppings.size() > 2)
         y += ",";
       }
-      if (arr.size() > 1)
+      if (toppings.size() > 1)
       y += " and";
-      y += " " + arr.get(arr.size() - 1) + "?";
+      y += " " + toppings.get(toppings.size() - 1) + "?";
     }
-    else if (p == 5)
+    else if (sentenceStructure == 5)
     {
       String a;
-      if (arr.get(0).substring(0, 1).equals("a") || arr.get(0).substring(0, 1).equals("o") || arr.get(0).substring(0, 1).equals("e"))
+      if (toppings.get(0).substring(0, 1).equals("a") || toppings.get(0).substring(0, 1).equals("o") || toppings.get(0).substring(0, 1).equals("e"))
       {
         a = "an";
       }
@@ -105,20 +104,20 @@ public class Sentence
         a = "a";
       }
       y += "I'm feeling like " + a;
-      for (int i = 0; i < arr.size() - 1; i++)
+      for (int i = 0; i < toppings.size() - 1; i++)
       {
-        y += " " + arr.get(i);
-        if (arr.size() > 2)
+        y += " " + toppings.get(i);
+        if (toppings.size() > 2)
         y += ",";
       }
-      if (arr.size() > 1)
+      if (toppings.size() > 1)
       y += " and";
-      y += " " + arr.get(arr.size() - 1) + " pizza right now.";
+      y += " " + toppings.get(toppings.size() - 1) + " pizza right now.";
     }
-    else if (p == 6)
+    else if (sentenceStructure == 6)
     {
       String a;
-      if (arr.get(0).substring(0, 1).equals("a") || arr.get(0).substring(0, 1).equals("o") || arr.get(0).substring(0, 1).equals("e"))
+      if (toppings.get(0).substring(0, 1).equals("a") || toppings.get(0).substring(0, 1).equals("o") || toppings.get(0).substring(0, 1).equals("e"))
       {
         a = "an";
       }
@@ -127,61 +126,61 @@ public class Sentence
         a = "a";
       }
       y += "Hi, I would like " + a;
-      for (int i = 0; i < arr.size() - 1; i++)
+      for (int i = 0; i < toppings.size() - 1; i++)
       {
-        y += " " + arr.get(i);
-        if (arr.size() > 2)
+        y += " " + toppings.get(i);
+        if (toppings.size() > 2)
           y += ",";
       }
-      if (arr.size() > 1)
+      if (toppings.size() > 1)
         y += " and";
-      y += " " + arr.get(arr.size() - 1) + " pizza, please.";
+      y += " " + toppings.get(toppings.size() - 1) + " pizza, please.";
     }
-    else if (p == 7)
+    else if (sentenceStructure == 7)
     {
       y += "I couldn't find a place with";
-      for (int i = 0; i < arr.size() - 1; i++)
+      for (int i = 0; i < toppings.size() - 1; i++)
       {
-        y += " " + arr.get(i);
-        if (arr.size() > 2)
+        y += " " + toppings.get(i);
+        if (toppings.size() > 2)
         {
           y += ",";
         }
       }
-      if (arr.size() > 1)
+      if (toppings.size() > 1)
         y += " and";
-      y += " " + arr.get(arr.size() - 1) + " pizza. Do you guys have it here?";
+      y += " " + toppings.get(toppings.size() - 1) + " pizza. Do you guys have it here?";
     }
-    else if (p == 8)
+    else if (sentenceStructure == 8)
     {
       y += "Show me your best";
-      for (int i = 0; i < arr.size() - 1; i++)
+      for (int i = 0; i < toppings.size() - 1; i++)
       {
-        y += " " + arr.get(i);
-        if (arr.size() > 2)
+        y += " " + toppings.get(i);
+        if (toppings.size() > 2)
           y += ",";
       }
-      if (arr.size() > 1)
+      if (toppings.size() > 1)
         y += " and";
-      y += " " + arr.get(arr.size() - 1) + " pizza. Don't disappoint me.";
+      y += " " + toppings.get(toppings.size() - 1) + " pizza. Don't disappoint me.";
     }
-    else if (p == 9)
+    else if (sentenceStructure == 9)
     {
       y += "I heard";
-      for (int i = 0; i < arr.size() - 1; i++)
+      for (int i = 0; i < toppings.size() - 1; i++)
       {
-        y += " " + arr.get(i);
-        if (arr.size() > 2)
+        y += " " + toppings.get(i);
+        if (toppings.size() > 2)
         {
           y += ",";
         }
       }
-      if (arr.size() > 1)
+      if (toppings.size() > 1)
         y += " and";
       String g = " go";
-      if (arr.size() == 1)
+      if (toppings.size() == 1)
         g = " goes";
-      y += " " + arr.get(arr.size() - 1) + g + " well on pizza.";
+      y += " " + toppings.get(toppings.size() - 1) + g + " well on pizza.";
     }
     return y;
   }
