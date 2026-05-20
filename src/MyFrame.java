@@ -237,6 +237,31 @@ public class MyFrame extends JFrame implements MouseListener {
 	int VIEWPORT_HEIGHT = 800;
 	int WINDOW_WIDTH = 813;
 	int WINDOW_HEIGHT = 837;
+	
+	// ====================================================================================================
+	// !!!                                      CONSTRUCTOR                                             !!!
+	// ====================================================================================================
+	
+	public MyFrame() {
+		setupPregameMenus();
+
+		setupPostgameMenus();
+		
+		setupPrompt();
+
+		setWindowProperties();
+		
+		setupCountertop();
+
+		setupRightPanel();
+
+		populateCountertop();
+
+		setupSentenceBox();
+
+		this.getContentPane().setBackground(new Color(0xEEE9D1));
+		this.setVisible(true);
+	}
 
 	private void setIconJLabel(JLabel label, String path) {
 		label.setIcon(new ImageIcon(this.getClass().getResource(path)));
@@ -528,31 +553,6 @@ public class MyFrame extends JFrame implements MouseListener {
 		}
 		
 		this.add(countertop);
-	}
-	
-	// ====================================================================================================
-	// !!!                                      CONSTRUCTOR                                             !!!
-	// ====================================================================================================
-	
-	public MyFrame() {
-		setupPregameMenus();
-
-		setupPostgameMenus();
-		
-		setupPrompt();
-
-		setWindowProperties();
-		
-		setupCountertop();
-
-		setupRightPanel();
-
-		populateCountertop();
-
-		setupSentenceBox();
-
-		this.getContentPane().setBackground(new Color(0xEEE9D1));
-		this.setVisible(true);
 	}
 	
 	public void resetMaps() {
@@ -953,8 +953,6 @@ public class MyFrame extends JFrame implements MouseListener {
 				workerList.get(workerIndex).cancel(true);
 				boolean valid = checkPizza();
 				
-				// !!!
-				// placeholder, make something in the frame say "correct" or "wrong" instead
 				if (valid) {
 					pizzas++;
 					points += currentPoints;
