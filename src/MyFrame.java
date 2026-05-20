@@ -1,15 +1,15 @@
-import javax.imageio.ImageIO;
+// import javax.imageio.ImageIO;
 
-import java.util.concurrent.*;
+// import java.util.concurrent.*;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.Timer;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.InputStream;
+// import java.io.InputStream;
 
 import javax.swing.border.Border;
-import java.lang.*;
+// import java.lang.*;
 
 public class MyFrame extends JFrame implements MouseListener {
 	// ===============================================================================================
@@ -115,81 +115,81 @@ public class MyFrame extends JFrame implements MouseListener {
 	ArrayList<JLabel> pizza = new ArrayList<JLabel>();
 	int pizzaIndex = 2;
 	
-	ImageIcon emptyTopping = new ImageIcon(this.getClass().getResource("Empty Topping.png"));
-	ImageIcon doughIcon = new ImageIcon(this.getClass().getResource("Dough.png"));
-	ImageIcon tomatoSauceIcon = new ImageIcon(this.getClass().getResource("Tomato Sauce.png"));
-	ImageIcon cheeseIcon = new ImageIcon(this.getClass().getResource("Cheese.png"));
-	ImageIcon pepperoniIcon = new ImageIcon(this.getClass().getResource("Pepperoni.png"));
-	ImageIcon sausageIcon = new ImageIcon(this.getClass().getResource("Sausage.png"));
-	ImageIcon mushroomIcon = new ImageIcon(this.getClass().getResource("Mushroom.png"));
-	ImageIcon onionIcon = new ImageIcon(this.getClass().getResource("Onion.png"));
-	ImageIcon greenPepperIcon = new ImageIcon(this.getClass().getResource("Green Pepper.png"));
-	ImageIcon anchovyIcon = new ImageIcon(this.getClass().getResource("Anchovy.png"));
-	ImageIcon eggIcon = new ImageIcon(this.getClass().getResource("Egg.png"));
-	ImageIcon hamIcon = new ImageIcon(this.getClass().getResource("Ham.png"));
-	ImageIcon jalapenoIcon = new ImageIcon(this.getClass().getResource("Jalapeno.png"));
-	ImageIcon kimchiIcon = new ImageIcon(this.getClass().getResource("Kimchi.png"));
-	ImageIcon lambIcon = new ImageIcon(this.getClass().getResource("Lamb.png"));
-	ImageIcon zucchiniIcon = new ImageIcon(this.getClass().getResource("Zucchini.png"));
+	ImageIcon emptyTopping = new ImageIcon(this.getClass().getResource("images/Empty Topping.png"));
+	ImageIcon doughIcon = new ImageIcon(this.getClass().getResource("images/Dough.png"));
+	ImageIcon tomatoSauceIcon = new ImageIcon(this.getClass().getResource("images/Tomato Sauce.png"));
+	ImageIcon cheeseIcon = new ImageIcon(this.getClass().getResource("images/Cheese.png"));
+	ImageIcon pepperoniIcon = new ImageIcon(this.getClass().getResource("images/Pepperoni.png"));
+	ImageIcon sausageIcon = new ImageIcon(this.getClass().getResource("images/Sausage.png"));
+	ImageIcon mushroomIcon = new ImageIcon(this.getClass().getResource("images/Mushroom.png"));
+	ImageIcon onionIcon = new ImageIcon(this.getClass().getResource("images/Onion.png"));
+	ImageIcon greenPepperIcon = new ImageIcon(this.getClass().getResource("images/Green Pepper.png"));
+	ImageIcon anchovyIcon = new ImageIcon(this.getClass().getResource("images/Anchovy.png"));
+	ImageIcon eggIcon = new ImageIcon(this.getClass().getResource("images/Egg.png"));
+	ImageIcon hamIcon = new ImageIcon(this.getClass().getResource("images/Ham.png"));
+	ImageIcon jalapenoIcon = new ImageIcon(this.getClass().getResource("images/Jalapeno.png"));
+	ImageIcon kimchiIcon = new ImageIcon(this.getClass().getResource("images/Kimchi.png"));
+	ImageIcon lambIcon = new ImageIcon(this.getClass().getResource("images/Lamb.png"));
+	ImageIcon zucchiniIcon = new ImageIcon(this.getClass().getResource("images/Zucchini.png"));
 	
-	ImageIcon bakedDoughIcon = new ImageIcon(this.getClass().getResource("Baked Dough.png"));
-	ImageIcon bakedTomatoSauceIcon = new ImageIcon(this.getClass().getResource("Baked Tomato Sauce.png"));
-	ImageIcon bakedCheeseIcon = new ImageIcon(this.getClass().getResource("Baked Cheese.png"));
-	ImageIcon bakedPepperoniIcon = new ImageIcon(this.getClass().getResource("Baked Pepperoni.png"));
-	ImageIcon bakedSausageIcon = new ImageIcon(this.getClass().getResource("Baked Sausage.png"));
-	ImageIcon bakedMushroomIcon = new ImageIcon(this.getClass().getResource("Baked Mushroom.png"));
-	ImageIcon bakedOnionIcon = new ImageIcon(this.getClass().getResource("Baked Onion.png"));
-	ImageIcon bakedGreenPepperIcon = new ImageIcon(this.getClass().getResource("Baked Green Pepper.png"));
-	ImageIcon bakedAnchovyIcon = new ImageIcon(this.getClass().getResource("Baked Anchovy.png"));
-	ImageIcon bakedEggIcon = new ImageIcon(this.getClass().getResource("Baked Egg.png"));
-	ImageIcon bakedHamIcon = new ImageIcon(this.getClass().getResource("Baked Ham.png"));
-	ImageIcon bakedJalapenoIcon = new ImageIcon(this.getClass().getResource("Baked Jalapeno.png"));
-	ImageIcon bakedKimchiIcon = new ImageIcon(this.getClass().getResource("Baked Kimchi.png"));
-	ImageIcon bakedLambIcon = new ImageIcon(this.getClass().getResource("Baked Lamb.png"));
-	ImageIcon bakedZucchiniIcon = new ImageIcon(this.getClass().getResource("Baked Zucchini.png"));
+	ImageIcon bakedDoughIcon = new ImageIcon(this.getClass().getResource("images/Baked Dough.png"));
+	ImageIcon bakedTomatoSauceIcon = new ImageIcon(this.getClass().getResource("images/Baked Tomato Sauce.png"));
+	ImageIcon bakedCheeseIcon = new ImageIcon(this.getClass().getResource("images/Baked Cheese.png"));
+	ImageIcon bakedPepperoniIcon = new ImageIcon(this.getClass().getResource("images/Baked Pepperoni.png"));
+	ImageIcon bakedSausageIcon = new ImageIcon(this.getClass().getResource("images/Baked Sausage.png"));
+	ImageIcon bakedMushroomIcon = new ImageIcon(this.getClass().getResource("images/Baked Mushroom.png"));
+	ImageIcon bakedOnionIcon = new ImageIcon(this.getClass().getResource("images/Baked Onion.png"));
+	ImageIcon bakedGreenPepperIcon = new ImageIcon(this.getClass().getResource("images/Baked Green Pepper.png"));
+	ImageIcon bakedAnchovyIcon = new ImageIcon(this.getClass().getResource("images/Baked Anchovy.png"));
+	ImageIcon bakedEggIcon = new ImageIcon(this.getClass().getResource("images/Baked Egg.png"));
+	ImageIcon bakedHamIcon = new ImageIcon(this.getClass().getResource("images/Baked Ham.png"));
+	ImageIcon bakedJalapenoIcon = new ImageIcon(this.getClass().getResource("images/Baked Jalapeno.png"));
+	ImageIcon bakedKimchiIcon = new ImageIcon(this.getClass().getResource("images/Baked Kimchi.png"));
+	ImageIcon bakedLambIcon = new ImageIcon(this.getClass().getResource("images/Baked Lamb.png"));
+	ImageIcon bakedZucchiniIcon = new ImageIcon(this.getClass().getResource("images/Baked Zucchini.png"));
 	
-	ImageIcon darkDoughIcon = new ImageIcon(this.getClass().getResource("Dark Dough.png"));
-	ImageIcon darkTomatoSauceIcon = new ImageIcon(this.getClass().getResource("Dark Tomato Sauce.png"));
-	ImageIcon darkCheeseIcon = new ImageIcon(this.getClass().getResource("Dark Cheese.png"));
-	ImageIcon darkPepperoniIcon = new ImageIcon(this.getClass().getResource("Dark Pepperoni.png"));
-	ImageIcon darkSausageIcon = new ImageIcon(this.getClass().getResource("Dark Sausage.png"));
-	ImageIcon darkMushroomIcon = new ImageIcon(this.getClass().getResource("Dark Mushroom.png"));
-	ImageIcon darkOnionIcon = new ImageIcon(this.getClass().getResource("Dark Onion.png"));
-	ImageIcon darkGreenPepperIcon = new ImageIcon(this.getClass().getResource("Dark Green Pepper.png"));
-	ImageIcon darkAnchovyIcon = new ImageIcon(this.getClass().getResource("Dark Anchovy.png"));
-	ImageIcon darkEggIcon = new ImageIcon(this.getClass().getResource("Dark Egg.png"));
-	ImageIcon darkHamIcon = new ImageIcon(this.getClass().getResource("Dark Ham.png"));
-	ImageIcon darkJalapenoIcon = new ImageIcon(this.getClass().getResource("Dark Jalapeno.png"));
-	ImageIcon darkKimchiIcon = new ImageIcon(this.getClass().getResource("Dark Kimchi.png"));
-	ImageIcon darkLambIcon = new ImageIcon(this.getClass().getResource("Dark Lamb.png"));
-	ImageIcon darkZucchiniIcon = new ImageIcon(this.getClass().getResource("Dark Zucchini.png"));
+	ImageIcon darkDoughIcon = new ImageIcon(this.getClass().getResource("images/Dark Dough.png"));
+	ImageIcon darkTomatoSauceIcon = new ImageIcon(this.getClass().getResource("images/Dark Tomato Sauce.png"));
+	ImageIcon darkCheeseIcon = new ImageIcon(this.getClass().getResource("images/Dark Cheese.png"));
+	ImageIcon darkPepperoniIcon = new ImageIcon(this.getClass().getResource("images/Dark Pepperoni.png"));
+	ImageIcon darkSausageIcon = new ImageIcon(this.getClass().getResource("images/Dark Sausage.png"));
+	ImageIcon darkMushroomIcon = new ImageIcon(this.getClass().getResource("images/Dark Mushroom.png"));
+	ImageIcon darkOnionIcon = new ImageIcon(this.getClass().getResource("images/Dark Onion.png"));
+	ImageIcon darkGreenPepperIcon = new ImageIcon(this.getClass().getResource("images/Dark Green Pepper.png"));
+	ImageIcon darkAnchovyIcon = new ImageIcon(this.getClass().getResource("images/Dark Anchovy.png"));
+	ImageIcon darkEggIcon = new ImageIcon(this.getClass().getResource("images/Dark Egg.png"));
+	ImageIcon darkHamIcon = new ImageIcon(this.getClass().getResource("images/Dark Ham.png"));
+	ImageIcon darkJalapenoIcon = new ImageIcon(this.getClass().getResource("images/Dark Jalapeno.png"));
+	ImageIcon darkKimchiIcon = new ImageIcon(this.getClass().getResource("images/Dark Kimchi.png"));
+	ImageIcon darkLambIcon = new ImageIcon(this.getClass().getResource("images/Dark Lamb.png"));
+	ImageIcon darkZucchiniIcon = new ImageIcon(this.getClass().getResource("images/Dark Zucchini.png"));
 
-	ImageIcon burntDoughIcon = new ImageIcon(this.getClass().getResource("Burnt Dough.png"));
-	ImageIcon burntTomatoSauceIcon = new ImageIcon(this.getClass().getResource("Burnt Tomato Sauce.png"));
-	ImageIcon burntCheeseIcon = new ImageIcon(this.getClass().getResource("Burnt Cheese.png"));
-	ImageIcon burntPepperoniIcon = new ImageIcon(this.getClass().getResource("Burnt Pepperoni.png"));
-	ImageIcon burntSausageIcon = new ImageIcon(this.getClass().getResource("Burnt Sausage.png"));
-	ImageIcon burntMushroomIcon = new ImageIcon(this.getClass().getResource("Burnt Mushroom.png"));
-	ImageIcon burntOnionIcon = new ImageIcon(this.getClass().getResource("Burnt Onion.png"));
-	ImageIcon burntGreenPepperIcon = new ImageIcon(this.getClass().getResource("Burnt Green Pepper.png"));
-	ImageIcon burntAnchovyIcon = new ImageIcon(this.getClass().getResource("Burnt Anchovy.png"));
-	ImageIcon burntEggIcon = new ImageIcon(this.getClass().getResource("Burnt Egg.png"));
-	ImageIcon burntHamIcon = new ImageIcon(this.getClass().getResource("Burnt Ham.png"));
-	ImageIcon burntJalapenoIcon = new ImageIcon(this.getClass().getResource("Burnt Jalapeno.png"));
-	ImageIcon burntKimchiIcon = new ImageIcon(this.getClass().getResource("Burnt Kimchi.png"));
-	ImageIcon burntLambIcon = new ImageIcon(this.getClass().getResource("Burnt Lamb.png"));
-	ImageIcon burntZucchiniIcon = new ImageIcon(this.getClass().getResource("Burnt Zucchini.png"));
+	ImageIcon burntDoughIcon = new ImageIcon(this.getClass().getResource("images/Burnt Dough.png"));
+	ImageIcon burntTomatoSauceIcon = new ImageIcon(this.getClass().getResource("images/Burnt Tomato Sauce.png"));
+	ImageIcon burntCheeseIcon = new ImageIcon(this.getClass().getResource("images/Burnt Cheese.png"));
+	ImageIcon burntPepperoniIcon = new ImageIcon(this.getClass().getResource("images/Burnt Pepperoni.png"));
+	ImageIcon burntSausageIcon = new ImageIcon(this.getClass().getResource("images/Burnt Sausage.png"));
+	ImageIcon burntMushroomIcon = new ImageIcon(this.getClass().getResource("images/Burnt Mushroom.png"));
+	ImageIcon burntOnionIcon = new ImageIcon(this.getClass().getResource("images/Burnt Onion.png"));
+	ImageIcon burntGreenPepperIcon = new ImageIcon(this.getClass().getResource("images/Burnt Green Pepper.png"));
+	ImageIcon burntAnchovyIcon = new ImageIcon(this.getClass().getResource("images/Burnt Anchovy.png"));
+	ImageIcon burntEggIcon = new ImageIcon(this.getClass().getResource("images/Burnt Egg.png"));
+	ImageIcon burntHamIcon = new ImageIcon(this.getClass().getResource("images/Burnt Ham.png"));
+	ImageIcon burntJalapenoIcon = new ImageIcon(this.getClass().getResource("images/Burnt Jalapeno.png"));
+	ImageIcon burntKimchiIcon = new ImageIcon(this.getClass().getResource("images/Burnt Kimchi.png"));
+	ImageIcon burntLambIcon = new ImageIcon(this.getClass().getResource("images/Burnt Lamb.png"));
+	ImageIcon burntZucchiniIcon = new ImageIcon(this.getClass().getResource("images/Burnt Zucchini.png"));
 	
-	ImageIcon zeroCutsIcon = new ImageIcon(this.getClass().getResource("Zero Cuts.png"));
-	ImageIcon oneCutIcon = new ImageIcon(this.getClass().getResource("One Cut.png"));
-	ImageIcon twoCutsIcon = new ImageIcon(this.getClass().getResource("Two Cuts.png"));
-	ImageIcon threeCutsIcon = new ImageIcon(this.getClass().getResource("Three Cuts.png"));
-	ImageIcon fourCutsIcon = new ImageIcon(this.getClass().getResource("Four Cuts.png"));
-	ImageIcon burntZeroCutsIcon = new ImageIcon(this.getClass().getResource("Burnt Zero Cuts.png"));
-	ImageIcon burntOneCutIcon = new ImageIcon(this.getClass().getResource("Burnt One Cut.png"));
-	ImageIcon burntTwoCutsIcon = new ImageIcon(this.getClass().getResource("Burnt Two Cuts.png"));
-	ImageIcon burntThreeCutsIcon = new ImageIcon(this.getClass().getResource("Burnt Three Cuts.png"));
-	ImageIcon burntFourCutsIcon = new ImageIcon(this.getClass().getResource("Burnt Four Cuts.png"));
+	ImageIcon zeroCutsIcon = new ImageIcon(this.getClass().getResource("images/Zero Cuts.png"));
+	ImageIcon oneCutIcon = new ImageIcon(this.getClass().getResource("images/One Cut.png"));
+	ImageIcon twoCutsIcon = new ImageIcon(this.getClass().getResource("images/Two Cuts.png"));
+	ImageIcon threeCutsIcon = new ImageIcon(this.getClass().getResource("images/Three Cuts.png"));
+	ImageIcon fourCutsIcon = new ImageIcon(this.getClass().getResource("images/Four Cuts.png"));
+	ImageIcon burntZeroCutsIcon = new ImageIcon(this.getClass().getResource("images/Burnt Zero Cuts.png"));
+	ImageIcon burntOneCutIcon = new ImageIcon(this.getClass().getResource("images/Burnt One Cut.png"));
+	ImageIcon burntTwoCutsIcon = new ImageIcon(this.getClass().getResource("images/Burnt Two Cuts.png"));
+	ImageIcon burntThreeCutsIcon = new ImageIcon(this.getClass().getResource("images/Burnt Three Cuts.png"));
+	ImageIcon burntFourCutsIcon = new ImageIcon(this.getClass().getResource("images/Burnt Four Cuts.png"));
 	
 	// ====================================================================================================
 	// !!!                                    LOGIC ELEMENTS                                            !!!
@@ -271,7 +271,7 @@ public class MyFrame extends JFrame implements MouseListener {
 		//essentials.setSize(500, 500);
 		//toppings.setSize(500, 500);
 
-		setIconJLabel(table, "counter.png");
+		setIconJLabel(table, "images/counter.png");
 		setBoundsJLabel(table, 0, 50, 500, 500);
 		
 		countertop.add(table);
@@ -344,24 +344,24 @@ public class MyFrame extends JFrame implements MouseListener {
 			int[] bounds = toppingBoundsArray[i];
 			label.setText(text);
 			label.setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
-			setIconJLabel(label, text + ".png");
+			setIconJLabel(label, "images/" + text + ".png");
 			label.addMouseListener(this);
 		}
 	}
 
 	private void setupPregameMenus() {
-		setIconJLabel(menu, "Menu Background.png");
+		setIconJLabel(menu, "images/Menu Background.png");
 		setBoundsJLabel(menu, 0, 0, VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
 		
-		setIconJLabel(play, "Play.png");
+		setIconJLabel(play, "images/Play.png");
 		setBoundsJLabel(play, 150, 550, 200, 100);
 		play.addMouseListener(this);
 		
-		setIconJLabel(tutorial, "Tutorial.png");
+		setIconJLabel(tutorial, "images/Tutorial.png");
 		setBoundsJLabel(tutorial, 450, 550, 200, 100);
 		tutorial.addMouseListener(this);
 		
-		setIconJLabel(tutorialPage, "Tutorial Page.png");
+		setIconJLabel(tutorialPage, "images/Tutorial Page.png");
 		setBoundsJLabel(tutorialPage, 0, 0, VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
 		tutorialPage.setVisible(false);
 
@@ -372,11 +372,11 @@ public class MyFrame extends JFrame implements MouseListener {
 	}
 
 	private void setupPostgameMenus() {
-		setIconJLabel(gameOver, "Game Over.png");
+		setIconJLabel(gameOver, "images/Game Over.png");
 		setBoundsJLabel(gameOver, 0, 0, VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
 		gameOver.setVisible(false);
 		
-		setIconJLabel(gameOverCenter, "Game Over Center.png");
+		setIconJLabel(gameOverCenter, "images/Game Over Center.png");
 		setBoundsJLabel(gameOverCenter, 13, 450, 787, 300);
 		gameOverCenter.setFont(new Font("MS Gothic", Font.BOLD, 50));
 		gameOverCenter.setHorizontalAlignment(JLabel.CENTER);
@@ -393,7 +393,7 @@ public class MyFrame extends JFrame implements MouseListener {
 		//sentenceCenter.setText("<html><body style='text-align: center'><p>Long ass sentence needs a linebreak blah blah this is too long what about some more and it even works underwater!!</p></body></html>");
 		Border border = BorderFactory.createLineBorder(new Color(0x313131), 5);
 		sentence.setBounds(0, 550, 500, 250);
-		ImageIcon sentenceImage = new ImageIcon(this.getClass().getResource("Sentence.png"));
+		ImageIcon sentenceImage = new ImageIcon(this.getClass().getResource("images/Sentence.png"));
 		sentence.setIcon(new ImageIcon(sentenceImage.getImage().getScaledInstance(500,  250,  Image.SCALE_DEFAULT)));
 		sentence.setBackground(new Color(0xF5F5F5));
 		sentence.setOpaque(true);
@@ -404,7 +404,7 @@ public class MyFrame extends JFrame implements MouseListener {
 		sentence.setVerticalAlignment(JLabel.CENTER);
 		sentence.setBorder(border);
 		
-		ImageIcon sentenceCenterImage = new ImageIcon(this.getClass().getResource("Sentence Center.png"));
+		ImageIcon sentenceCenterImage = new ImageIcon(this.getClass().getResource("images/Sentence Center.png"));
 		sentenceCenter.setIcon(new ImageIcon(sentenceCenterImage.getImage().getScaledInstance(487, 250, Image.SCALE_DEFAULT)));
 		sentenceCenter.setBounds(13, 550, 487, 250);
 		sentenceCenter.setHorizontalTextPosition(JLabel.CENTER);
@@ -420,7 +420,7 @@ public class MyFrame extends JFrame implements MouseListener {
 		bottomLeft.add(sentence);
 
 		topBar.setBounds(0, 0, 800, 50);
-		topBar.setIcon(new ImageIcon(this.getClass().getResource("Top Bar.png")));
+		topBar.setIcon(new ImageIcon(this.getClass().getResource("images/Top Bar.png")));
 		topBar.setBackground(new Color(0xDDDDDD));
 		topBar.setOpaque(true);
 		topBar.setFont(new Font("MS Gothic", Font.BOLD, 30));
@@ -1161,29 +1161,29 @@ public class MyFrame extends JFrame implements MouseListener {
 	public void mousePressed(MouseEvent e) {
 		if (started) {
 			if (e.getSource() == confirm) {
-				confirm.setIcon(new ImageIcon(this.getClass().getResource("Pressed Confirm.png")));
+				confirm.setIcon(new ImageIcon(this.getClass().getResource("images/Pressed Confirm.png")));
 			}
 		}
 	}
 	public void mouseEntered(MouseEvent e) {
 		if (e.getSource() == play) {
-			play.setIcon(new ImageIcon(this.getClass().getResource("Hover Play.png")));
+			play.setIcon(new ImageIcon(this.getClass().getResource("images/Hover Play.png")));
 		} else if (e.getSource() == tutorial) {
-			tutorial.setIcon(new ImageIcon(this.getClass().getResource("Hover Tutorial.png")));
+			tutorial.setIcon(new ImageIcon(this.getClass().getResource("images/Hover Tutorial.png")));
 		}
 	}
 	public void mouseReleased(MouseEvent e) {
 		if (started) {
 			if (e.getSource() == confirm) {
-				confirm.setIcon(new ImageIcon(this.getClass().getResource("Confirm.png")));
+				confirm.setIcon(new ImageIcon(this.getClass().getResource("images/Confirm.png")));
 			}
 		}
 	}
 	public void mouseExited(MouseEvent e) {
 		if (e.getSource() == play) {
-			play.setIcon(new ImageIcon(this.getClass().getResource("Play.png")));
+			play.setIcon(new ImageIcon(this.getClass().getResource("images/Play.png")));
 		} else if (e.getSource() == tutorial) {
-			tutorial.setIcon(new ImageIcon(this.getClass().getResource("Tutorial.png")));
+			tutorial.setIcon(new ImageIcon(this.getClass().getResource("images/Tutorial.png")));
 		}
 	}
 	
